@@ -47,7 +47,9 @@
     />
 
     <div
-      class="mt-1 shadow-sm border w-full text-lg border-gray-500 rounded-md bg-gray-600 text-white h-16 block relative overflow-hidden cursor-pointer {overrideClasses}"
+      class="{label
+        ? 'mt-1'
+        : ''} shadow-sm border w-full text-lg border-gray-500 rounded-md bg-gray-600 text-white h-16 block relative overflow-hidden cursor-pointer {overrideClasses}"
       on:click={chooseFile}
       on:dragenter|preventDefault|stopPropagation={dragenter}
       on:dragover|preventDefault|stopPropagation={dragenter}

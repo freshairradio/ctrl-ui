@@ -1,77 +1,77 @@
 <script>
-  import { Router, Link, Route } from "svelte-routing";
+  import { Router, Link, Route, navigate } from "svelte-routing";
   import Data from "../Data.svelte";
-  import { onMount } from "svelte";
-  import ShowList from "./ShowList.svelte";
-  let loadingUsers = true;
-  let errorUsers: string;
-  let users: any[];
-  const loadUsers = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.SNOWPACK_PUBLIC_API_HOST}/v1/users/shows`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("freshair:auth")}`
-          }
-        }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        users = data;
-        loadingUsers = false;
-      } else {
-        try {
-          const errData = await res.json();
-          errorUsers = errData.message ?? "default";
-        } catch (e) {
-          errorUsers = "default";
-          console.error(e);
-        }
-        loadingUsers = false;
-      }
-    } catch (e) {
-      console.error(e);
-      errorUsers = "default";
-      loadingUsers = false;
-    }
-  };
-  const setRoles = (userId: string, roles: string[]) => async (e: Event) => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.SNOWPACK_PUBLIC_API_HOST}/v1/users/${userId}/roles`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("freshair:auth")}`
-          },
-          body: JSON.stringify(roles)
-        }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        loadUsers();
-      } else {
-        try {
-          const errData = await res.json();
-          errorUsers = errData.message ?? "default";
-        } catch (e) {
-          errorUsers = "default";
-          console.error(e);
-        }
-      }
-    } catch (e) {
-      console.error(e);
-      errorUsers = "default";
-    }
-  };
+  import TextField from "../forms/TextField.svelte";
+  let creatingShow = false;
+  let newShowName;
 </script>
 
 <div class="py-6">
-  <div class="max-w-4xl px-4 mx-auto sm:px-6 md:px-8">
+  <div class="flex items-center max-w-4xl px-4 mx-auto sm:px-6 md:px-8">
     <h1 class="text-2xl font-semibold text-gray-100">Your Shows</h1>
+    <Data load="/v1/auth/me" let:data={user}>
+      {#if user.roles.find((r) => r.name == "admin")}
+        <Data
+          load="/v1/shows"
+          create
+          onFinish={(e) => navigate(`/dashboard/shows/${e.slug}`)}
+        >
+          <div slot="trigger" let:trigger class="flex ml-auto">
+            {#if creatingShow}
+              <TextField
+                bind:value={newShowName}
+                label=""
+                placeholder="Show Name"
+              />
+              <button
+                on:click={() =>
+                  trigger({
+                    title: newShowName,
+                    slug: newShowName.toLowerCase().replace(/[^a-z]+/g, "-")
+                  })}
+                class="flex items-center flex-grow-0 px-3 ml-2 text-gray-400 bg-gray-700 rounded-md cursor-pointer hover:bg-gray-600 justify-items-center whitespace-nowrap"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="w-6 h-6 text-white"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
+                </svg>
+              </button>
+            {:else}
+              <button
+                on:click={() => (creatingShow = true)}
+                class="flex p-2 px-4 text-white bg-indigo-500 rounded-full hover:bg-indigo-600"
+              >
+                Create Show
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="w-6 h-6 ml-2 text-white"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
+                </svg>
+              </button>
+            {/if}
+          </div>
+        </Data>
+      {/if}
+    </Data>
   </div>
   <div class="max-w-4xl px-4 mx-auto mt-5 sm:px-6 md:px-8">
     <Data load="/v1/my/shows">
@@ -96,7 +96,7 @@
                         {show.title}
                       </p>
                       <p class="font-medium text-gray-200 text-md ">
-                        {show.meta.byline ?? ""}
+                        {show?.meta?.byline ?? ""}
                       </p>
                     </div>
                   </div>

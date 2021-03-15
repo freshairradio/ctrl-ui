@@ -17,7 +17,9 @@
     <Autosize
       name={label}
       bind:value
-      class="block w-full mt-1 text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
+      class="block w-full {label
+        ? 'mt-1'
+        : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
       {placeholder}
       aria-describedby="{label}-description"
     />

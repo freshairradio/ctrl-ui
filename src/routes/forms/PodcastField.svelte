@@ -16,7 +16,9 @@
     class="block font-medium text-gray-100 text-md focus-within:text-indigo-300"
   >
     <div
-      class="flex w-full gap-2 mt-1 text-lg text-white bg-gray-600 border border-transparent rounded-md "
+      class="flex w-full gap-2 {label
+        ? 'mt-1'
+        : ''} text-lg text-white bg-gray-600 border border-transparent rounded-md "
     >
       {#if editing}
         <input

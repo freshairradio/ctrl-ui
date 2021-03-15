@@ -51,7 +51,7 @@
       error = "default";
     }
   }, 3000);
-  const doCreate = async () => {
+  const doCreate = async (payload) => {
     loading = true;
     try {
       const res = await fetch(
@@ -62,7 +62,7 @@
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("freshair:auth")}`
           },
-          body: JSON.stringify(options)
+          body: JSON.stringify({ ...options, ...payload })
         }
       );
       if (res.ok) {

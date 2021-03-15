@@ -16,7 +16,9 @@
     <div class="flex  {prefix ? 'rounded-r-md' : 'rounded-md'} shadow-sm">
       {#if prefix}
         <span
-          class="flex items-center flex-grow-0 px-3 mt-1 mr-1 text-gray-400 bg-gray-700 border-gray-500 rounded-md whitespace-nowrap"
+          class="flex items-center flex-grow-0 px-3 {label
+            ? 'mt-1'
+            : ''} mr-1 text-gray-400 bg-gray-700 border-gray-500 rounded-md whitespace-nowrap"
         >
           {prefix}
         </span>
@@ -25,7 +27,9 @@
         type="text"
         name={label}
         bind:value
-        class="block w-full mt-1 text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
+        class="block w-full {label
+          ? 'mt-1'
+          : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
         {placeholder}
         aria-describedby="{label}-description"
       />
