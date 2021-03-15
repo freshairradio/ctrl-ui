@@ -124,8 +124,8 @@
         <div>
           <img
             class="inline-block bg-white rounded-full h-9 w-9"
-            src={"https://cdn.freshair.radio/logos/FreshairBlackLogo.png" ??
-              user.details.avatar}
+            src={user.details.avatar ??
+              "https://cdn.freshair.radio/logos/FreshairBlackLogo.png"}
             alt=""
           />
         </div>
