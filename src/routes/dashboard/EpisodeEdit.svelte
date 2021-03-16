@@ -105,19 +105,25 @@
       </Data>
     </div>
     <div class="px-4 py-5 sm:px-6 ">
-      <dl class="grid grid-cols-1 gap-4 row-gap-4 col-gap-4 sm:grid-cols-2">
+      <dl class="grid grid-cols-6 gap-4 row-gap-4 col-gap-4 ">
         <TextField
-          class="sm:col-span-2"
+          class="col-span-1"
+          label="Number"
+          bind:value={$episode.scheduling.number}
+          prefix="#"
+        />
+        <TextField
+          class="col-span-5"
           label="Title"
           bind:value={$episode.title}
         />
         <TextAreaField
-          class="sm:col-span-2"
+          class="col-span-6"
           label="Description"
           bind:value={$episode.description}
         />
         <SelectField
-          class="sm:col-span-2"
+          class="col-span-6"
           label="Broadcast in week starting..."
           bind:value={$episode.scheduling.week}
           options={[
@@ -141,19 +147,9 @@
           value={$episode.audio}
           processedValue={$episode.meta.published !== false && $episode.meta}
           label="Episode audio"
-          class=" sm:col-span-2"
+          class="col-span-6"
           ct="audio/mpeg,audio/mp3"
         />
-        <Data load="/v1/reprocess/{$episode.id}" create>
-          <button
-            let:trigger
-            on:click={trigger}
-            slot="trigger"
-            class="flex col-span-2 p-2 px-4 text-white bg-indigo-500 rounded-full hover:bg-indigo-600"
-          >
-            Reprocess
-          </button>
-        </Data>
       </dl>
     </div>
   </div>
