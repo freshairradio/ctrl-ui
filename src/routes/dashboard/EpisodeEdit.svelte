@@ -144,6 +144,16 @@
           class=" sm:col-span-2"
           ct="audio/mpeg,audio/mp3"
         />
+        <Data load="/v1/reprocess/{$episode.id}" create>
+          <button
+            let:trigger
+            on:click={trigger}
+            slot="trigger"
+            class="flex col-span-2 p-2 px-4 text-white bg-indigo-500 rounded-full hover:bg-indigo-600"
+          >
+            Reprocess
+          </button>
+        </Data>
       </dl>
     </div>
   </div>
