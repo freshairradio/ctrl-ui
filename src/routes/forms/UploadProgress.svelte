@@ -21,7 +21,7 @@
   let done = false;
   const setupProgressListening = (url) => {
     processing = true;
-    ws = new WebSocket("ws://localhost:8080");
+    ws = new WebSocket("wss://ws.freshair.radio");
     ws.onmessage = (m) => {
       const data = JSON.parse(m.data);
       if (data.type == "processingUpdate" && url == data.for) {
