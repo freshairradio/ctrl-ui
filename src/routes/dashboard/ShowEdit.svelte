@@ -25,7 +25,7 @@
 {#if $show.picture}
   <img
     src={$show.picture}
-    class="fixed top-0 left-0 object-cover w-screen h-screen -z-10"
+    class="fixed top-0 left-0 object-cover w-screen h-screen pointer-events-none -z-10"
     style="filter: blur(15px) opacity(0.8)"
   />
 {/if}
