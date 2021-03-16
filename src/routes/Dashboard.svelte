@@ -5,6 +5,7 @@
   import UserManagement from "./dashboard/UserManagement.svelte";
   import ShowManagement from "./dashboard/ShowManagement.svelte";
   import Show from "./dashboard/Show.svelte";
+  import Station from "./dashboard/Station.svelte";
   import Episode from "./dashboard/Episode.svelte";
   let showMenu = false;
   let loadingUser = true;
@@ -12,7 +13,10 @@
   let user: any;
   let menuOpen = false;
   import { fade } from "svelte/transition";
-  const navigation = [{ label: "Dashboard", url: "/dashboard" }];
+  const navigation = [
+    { label: "Dashboard", url: "/dashboard" },
+    { label: "Station", url: "/dashboard/station" }
+  ];
   onMount(async () => {
     try {
       const res = await fetch(
@@ -58,6 +62,7 @@
           <Route path="/" component={ShowManagement} />
 
           <Route path="/users" component={UserManagement} />
+          <Route path="/station" component={Station} />
           <!-- <Route path="/dashboard" component={Dashboard} /> -->
           <Route path="/shows/:slug" component={Show} />
           <Route path="/shows/:slug/episodes/:episodeId" component={Episode} />
