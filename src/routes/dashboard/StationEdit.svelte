@@ -19,6 +19,7 @@
 
   export let station;
   export let dirty;
+  
 </script>
 
 {#if $station.picture}
@@ -111,7 +112,7 @@
       <TextAreaField
         class=""
         label="Description"
-        bind:value={$station.description}
+        bind:value={$station.meta.description}
         description="Tell your listeners a bit about {$station.name}"
       />
     </div>
