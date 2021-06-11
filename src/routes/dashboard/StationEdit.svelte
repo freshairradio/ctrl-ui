@@ -1,21 +1,21 @@
 <script>
   export let slug;
-  import Data from "../Data.svelte";
-  import { sortBy } from "lodash";
-  import { navigate, Link } from "svelte-routing";
-  import Clock from "../../icons/Clock.svelte";
-  import moment from "moment";
-  import ShowList from "./ShowList.svelte";
-  import TextField from "../forms/TextField.svelte";
-  import TextAreaField from "../forms/TextAreaField.svelte";
-  import SelectField from "../forms/SelectField.svelte";
-  import ImageField from "../forms/ImageField.svelte";
-  import ButtonSelectField from "../forms/ButtonSelectField.svelte";
-  import PodcastField from "../forms/PodcastField.svelte";
-  import Episode from "./Episode.svelte";
-  import UserManagement from "./UserManagement.svelte";
-  import { findAllByAltText } from "@testing-library/dom";
-  import SimpleColourField from "../forms/SimpleColourField.svelte";
+  import Data from '../Data.svelte';
+  import { sortBy } from 'lodash';
+  import { navigate, Link } from 'svelte-routing';
+  import Clock from '../../icons/Clock.svelte';
+  import moment from 'moment';
+  import ShowList from './ShowList.svelte';
+  import TextField from '../forms/TextField.svelte';
+  import TextAreaField from '../forms/TextAreaField.svelte';
+  import SelectField from '../forms/SelectField.svelte';
+  import ImageField from '../forms/ImageField.svelte';
+  import ButtonSelectField from '../forms/ButtonSelectField.svelte';
+  import PodcastField from '../forms/PodcastField.svelte';
+  import Episode from './Episode.svelte';
+  import UserManagement from './UserManagement.svelte';
+  import { findAllByAltText } from '@testing-library/dom';
+  import SimpleColourField from '../forms/SimpleColourField.svelte';
 
   export let station;
   export let dirty;
@@ -111,7 +111,7 @@
       <TextAreaField
         class=""
         label="Description"
-        bind:value={$station.description}
+        bind:value={$station.meta.description}
         description="Tell your listeners a bit about {$station.name}"
       />
     </div>

@@ -1,11 +1,12 @@
 <script>
-  let tailwind;
+  let tailwind: string;
   export { tailwind as class };
-  export let label;
-  export let value;
+  export let label: string;
+  export let value: string;
   export let placeholder = "...";
-  export let description;
-  export let prefix;
+  export let description: string = "";
+  export let prefix: string = "";
+  export let type = "text";
 </script>
 
 <div class={tailwind}>
@@ -23,16 +24,37 @@
           {prefix}
         </span>
       {/if}
-      <input
-        type="text"
-        name={label}
-        bind:value
-        class="block w-full {label
-          ? 'mt-1'
-          : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
-        {placeholder}
-        aria-describedby="{label}-description"
-      />
+      {#if type == "text"}
+        <input
+          type="text"
+          name={label}
+          bind:value
+          class="block w-full {label
+            ? 'mt-1'
+            : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
+          {placeholder}
+          aria-describedby="{label}-description"
+        />{:else if type == "password"}
+        <input
+          type="password"
+          name={label}
+          bind:value
+          class="block w-full {label
+            ? 'mt-1'
+            : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
+          {placeholder}
+          aria-describedby="{label}-description"
+        />{:else if type == "email"}
+        <input
+          type="email"
+          name={label}
+          bind:value
+          class="block w-full {label
+            ? 'mt-1'
+            : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
+          {placeholder}
+          aria-describedby="{label}-description"
+        />{/if}
     </div>
   </label>
   {#if description}
@@ -41,5 +63,6 @@
     </p>
   {:else}
     <slot name="description" />
+    <slot />
   {/if}
 </div>

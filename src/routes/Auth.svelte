@@ -1,5 +1,7 @@
 <script lang="typescript">
+  import { doFetch } from "../svelte-data-loading/common";
   import { navigate } from "svelte-routing";
+  import TextField from "./forms/TextField.svelte";
 
   type InterfaceVersion = "login" | "register";
   let interfaceType: InterfaceVersion = "login";
@@ -235,68 +237,25 @@
         <div class="mt-6">
           <form on:submit={signIn} class="space-y-6">
             {#if interfaceType == "register"}
-              <div>
-                <label
-                  for="name"
-                  class="block text-sm font-medium text-gray-100"
-                >
-                  Name
-                </label>
-                <div class="mt-1">
-                  <input
-                    bind:value={name}
-                    id="name"
-                    name="name"
-                    type="type"
-                    disabled={loading}
-                    autocomplete="name"
-                    required
-                    class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none disabled:bg-gray-300 focus:outline-none focus:bg-indigo-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                </div>
-              </div>
+              <TextField
+                label="Name"
+                bind:value={name}
+                type="text"
+                placeholder="Jane Doe"
+              />
             {/if}
-            <div>
-              <label
-                for="email"
-                class="block text-sm font-medium text-gray-100"
-              >
-                Email address
-              </label>
-              <div class="mt-1">
-                <input
-                  bind:value={email}
-                  id="email"
-                  name="email"
-                  type="email"
-                  disabled={loading}
-                  autocomplete="email"
-                  required
-                  class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none disabled:bg-gray-300 focus:outline-none focus:bg-indigo-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <label
-                for="password"
-                class="block text-sm font-medium text-gray-100"
-              >
-                Password
-              </label>
-              <div class="mt-1">
-                <input
-                  bind:value={password}
-                  id="password"
-                  name="password"
-                  type="password"
-                  disabled={loading}
-                  autocomplete="current-password"
-                  required
-                  class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none disabled:bg-gray-300 focus:outline-none focus:bg-indigo-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
+            <TextField
+              label="Email Address"
+              bind:value={email}
+              type="email"
+              placeholder="jane@doe.com"
+            />
+            <TextField
+              label="Password"
+              bind:value={password}
+              type="password"
+              placeholder="**********"
+            />
 
             <!-- <div class="flex items-center justify-between">
               <div class="text-sm">
