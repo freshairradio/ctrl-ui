@@ -19,6 +19,7 @@
 
   export let station;
   export let dirty;
+  
 </script>
 
 {#if $station.picture}

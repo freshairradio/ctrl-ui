@@ -137,7 +137,11 @@
             "8th March",
             "15th March",
             "22nd March",
-            "29th March"
+            "29th March",
+            "5th April",
+            "12th April",
+            "19th April",
+            "26th April"
           ]}
         />
         <MediaField
