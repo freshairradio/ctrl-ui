@@ -1,31 +1,30 @@
 <script lang="typescript">
-  import { Router, Link, Route } from "svelte-routing";
-  import Data from "./Data.svelte";
-  import { onMount } from "svelte";
-  import UserManagement from "./dashboard/UserManagement.svelte";
-  import ShowManagement from "./dashboard/ShowManagement.svelte";
-  import Show from "./dashboard/Show.svelte";
-  import Station from "./dashboard/Station.svelte";
-  import Episode from "./dashboard/Episode.svelte";
+  import { Router, Link, Route } from 'svelte-routing';
+  import Data from './Data.svelte';
+  import { onMount } from 'svelte';
+  import UserManagement from './dashboard/UserManagement.svelte';
+  import ShowManagement from './dashboard/ShowManagement.svelte';
+  import Show from './dashboard/Show.svelte';
+  import Station from './dashboard/Station.svelte';
+  import Episode from './dashboard/Episode.svelte';
   let showMenu = false;
   let loadingUser = true;
   let errorUser: string;
   let user: any;
   let menuOpen = false;
-  import { fade } from "svelte/transition";
-  const navigation = [
-    { label: "Dashboard", url: "/dashboard" },
-    { label: "Station", url: "/dashboard/station" }
-  ];
+  import { fade } from 'svelte/transition';
+  import { use } from 'chai';
+  import StationSearch from './dashboard/StationSearch.svelte';
+
   onMount(async () => {
     try {
       const res = await fetch(
         `${import.meta.env.SNOWPACK_PUBLIC_API_HOST}/v1/auth/me`,
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("freshair:auth")}`
-          }
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('freshair:auth')}`,
+          },
         }
       );
       if (res.ok) {
@@ -35,16 +34,16 @@
       } else {
         try {
           const errData = await res.json();
-          errorUser = errData.message ?? "default";
+          errorUser = errData.message ?? 'default';
         } catch (e) {
-          errorUser = "default";
+          errorUser = 'default';
           console.error(e);
         }
         loadingUser = false;
       }
     } catch (e) {
       console.error(e);
-      errorUser = "default";
+      errorUser = 'default';
       loadingUser = false;
     }
   });
@@ -60,11 +59,13 @@
       <div class="py-6">
         <Router>
           <Route path="/" component={ShowManagement} />
+          <Route path="/add-station" component={StationSearch} />
 
           <Route path="/users" component={UserManagement} />
           <Route path="/station" component={Station} />
           <!-- <Route path="/dashboard" component={Dashboard} /> -->
           <Route path="/shows/:slug" component={Show} />
+          <Route path="/stations/:id" component={Station} />
           <Route path="/shows/:slug/episodes/:episodeId" component={Episode} />
         </Router>
       </div>
@@ -78,15 +79,24 @@
     class="fixed top-0 left-0 z-50 w-screen h-screen pt-20 bg-black bg-opacity-85"
     on:click={() => (menuOpen = false)}
   >
-    {#each navigation as link}
-      <a
-        rel="prefetch"
-        class="block py-2 text-3xl font-thin text-center text-white"
-        href={link.url}
-      >
-        {link.label}
-      </a>
-    {/each}
+    <Link
+      rel="prefetch"
+      class="block py-2 text-3xl font-thin text-center text-white"
+      to="/dashboard"
+    >
+      Dashboard
+    </Link>
+
+    <Data load="/v1/auth/me" let:data={user}>
+      {#if user.stations.length > 0}
+        <Link
+          rel="prefetch"
+          class="block py-2 text-3xl font-thin text-center text-white"
+          to="/dashboard/stations/{user.stations[0].id}"
+        >
+          Station
+        </Link>{/if}
+    </Data>
   </div>
 {/if}
 
@@ -130,7 +140,7 @@
           <img
             class="inline-block bg-white rounded-full h-9 w-9"
             src={user.details.avatar ??
-              "https://cdn.freshair.radio/logos/FreshairBlackLogo.png"}
+              'https://cdn.freshair.radio/logos/FreshairBlackLogo.png'}
             alt=""
           />
         </div>

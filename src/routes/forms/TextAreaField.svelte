@@ -1,11 +1,11 @@
 <script>
-  import Autosize from "./Autosize.svelte";
+  import Autosize from './Autosize.svelte';
 
   let tailwind;
   export { tailwind as class };
   export let label;
   export let value;
-  export let placeholder = "...";
+  export let placeholder = '...';
   export let description;
 </script>
 
@@ -25,7 +25,7 @@
     />
   </label>
   {#if description}
-    <p class="mt-2 text-gray-200 text-md" id="{label}-description">
+    <p class="mt-2 text-sm text-gray-300" id="{label}-description">
       {description}
     </p>
   {:else}

@@ -1,12 +1,12 @@
 <script>
-  import Data from "../Data.svelte";
-  import ImageUploadProgress from "./ImageUploadProgress.svelte";
+  import Data from '../Data.svelte';
+  import ImageUploadProgress from './ImageUploadProgress.svelte';
   let fileInput;
   let file;
 
   let overrideClasses;
   const chooseFile = (e) => {
-    overrideClasses = "border-indigo-500 bg-indigo-900 ring-indigo-500";
+    overrideClasses = 'border-indigo-500 bg-indigo-900 ring-indigo-500';
     console.log(e);
     fileInput.click();
   };
@@ -16,16 +16,16 @@
   };
 
   const dragenter = (e) => {
-    overrideClasses = "border-indigo-500 bg-indigo-900 ring-indigo-500";
+    overrideClasses = 'border-indigo-500 bg-indigo-900 ring-indigo-500';
   };
 
   let tailwind;
   export { tailwind as class };
   export let label;
-  export let placeholder = "Drag and drop or click to upload";
+  export let placeholder = 'Drag and drop or click to upload';
   export let description;
   export let ct;
-
+  export let style;
   export let value;
   $: console.log(file);
 </script>
@@ -44,10 +44,14 @@
     on:click={chooseFile}
     on:dragenter|preventDefault|stopPropagation={dragenter}
     on:dragover|preventDefault|stopPropagation={dragenter}
-    on:dragleave|preventDefault|stopPropagation={() => (overrideClasses = "")}
+    on:dragleave|preventDefault|stopPropagation={() => (overrideClasses = '')}
     on:drop|preventDefault|stopPropagation={dropFile}
   >
-    <img class="absolute top-0 flex object-cover w-full h-full" src={value} />
+    <img
+      class="absolute top-0 flex object-cover w-full h-full"
+      src={value}
+      {style}
+    />
 
     {#if file}
       <Data
@@ -59,7 +63,7 @@
           <slot data={signed} />
         </ImageUploadProgress>
       </Data>
-    {:else}
+    {:else if !value}
       <div
         class="absolute top-0 flex w-full h-full bg-indigo-500 bg-opacity-50"
       >

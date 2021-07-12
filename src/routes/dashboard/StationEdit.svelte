@@ -19,7 +19,6 @@
 
   export let station;
   export let dirty;
-  
 </script>
 
 {#if $station.picture}
@@ -34,23 +33,22 @@
   <div class="p-4">
     <div class="flex flex-col w-full gap-4">
       <div class="flex items-start gap-4">
-        <div>
+        <div class="flex-shrink">
           <ImageField
             on:uploaded={({ detail }) => {
               $station.picture = detail.access;
             }}
             value={$station.picture}
-            class="inline-block object-cover rounded-lg w-72 h-72"
+            class="inline-block object-contain h-48 rounded-lg w-96"
             ct="image/png,image/jpeg,image/jpg"
             process={false}
+            style="background: {$station.colour};object-fit:contain"
           />
-          <!-- <img
-            class="inline-block h-64 w-64 object-cover rounded-lg {!$station.picture &&
-              'bg-white'}"
-            src={$station.picture ??
-              "https://cdn.freshair.radio/logos/FreshairBlackLogo.png"}
-            alt=""
-          /> -->
+          <p class="mt-2 text-sm text-gray-300 w-96">
+            Make sure to use an image that blends onto a solid background of
+            your brand colour, prominently includes your station's name, is at
+            least 1000px by 500px, and has an aspect-ratio of roughly 2 by 1.
+          </p>
         </div>
         <div class="relative grid flex-grow grid-cols-2 gap-4">
           <div class="flex items-center col-span-2">

@@ -3,10 +3,10 @@
   export { tailwind as class };
   export let label: string;
   export let value: string;
-  export let placeholder = "...";
-  export let description: string = "";
-  export let prefix: string = "";
-  export let type = "text";
+  export let placeholder = '...';
+  export let description: string = '';
+  export let prefix: string = '';
+  export let type = 'text';
 </script>
 
 <div class={tailwind}>
@@ -24,7 +24,7 @@
           {prefix}
         </span>
       {/if}
-      {#if type == "text"}
+      {#if type == 'text'}
         <input
           type="text"
           name={label}
@@ -34,7 +34,7 @@
             : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
           {placeholder}
           aria-describedby="{label}-description"
-        />{:else if type == "password"}
+        />{:else if type == 'password'}
         <input
           type="password"
           name={label}
@@ -44,7 +44,7 @@
             : ''} text-lg text-white bg-gray-600 border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:bg-indigo-900"
           {placeholder}
           aria-describedby="{label}-description"
-        />{:else if type == "email"}
+        />{:else if type == 'email'}
         <input
           type="email"
           name={label}
@@ -58,7 +58,7 @@
     </div>
   </label>
   {#if description}
-    <p class="mt-2 text-gray-200 text-md" id="{label}-description">
+    <p class="mt-2 text-sm text-gray-300" id="{label}-description">
       {description}
     </p>
   {:else}
