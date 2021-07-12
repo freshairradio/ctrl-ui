@@ -9,7 +9,7 @@
 </script>
 
 <div class="max-w-3xl mx-auto mt-14">
-  <Read path="/v1/public/stations" let:data>
+  <Read path="/v1/stations" let:data>
     <h1 class="mb-4 text-2xl font-semibold text-gray-100">Find your Station</h1>
 
     <TextField
@@ -62,14 +62,14 @@
               </div>
               <Create
                 path="/v1/my/stations"
-                onFinish={(e) => alert(e)}
+                onFinish={(e) => navigate(`/dashboard/stations/${station.id}`)}
                 let:trigger
               >
                 <button
                   on:click={() =>
                     trigger({
                       body: {
-                        station: station.key,
+                        station: station.id,
                       },
                     })}
                   class="flex p-2 px-4 ml-auto text-white bg-indigo-500 rounded-full hover:bg-indigo-600"
