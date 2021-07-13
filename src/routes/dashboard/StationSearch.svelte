@@ -45,9 +45,9 @@
             <div class="flex items-center">
               <div>
                 <img
-                  class="inline-block h-12 w-12 rounded-lg {!station.logo &&
+                  class="inline-block h-12 w-12 rounded-lg {!station.picture &&
                     'bg-white'}"
-                  src={station.logo ??
+                  src={station.picture ??
                     'https://cdn.freshair.radio/logos/FreshairBlackLogo.png'}
                   alt=""
                 />
@@ -80,7 +80,7 @@
             </div>
           </div>
           <div class="mt-4 text-gray-100 whitespace-pre-wrap text-md">
-            {station.description}
+            {station?.meta?.description}
           </div>
         </div>
       </div>
