@@ -1,20 +1,20 @@
 <script>
   export let slug;
-  import Data from "../Data.svelte";
-  import { sortBy } from "lodash";
-  import { navigate, Link } from "svelte-routing";
-  import Clock from "../../icons/Clock.svelte";
-  import moment from "moment";
-  import ShowList from "./ShowList.svelte";
-  import TextField from "../forms/TextField.svelte";
-  import TextAreaField from "../forms/TextAreaField.svelte";
-  import SelectField from "../forms/SelectField.svelte";
-  import ImageField from "../forms/ImageField.svelte";
-  import ButtonSelectField from "../forms/ButtonSelectField.svelte";
-  import PodcastField from "../forms/PodcastField.svelte";
-  import Episode from "./Episode.svelte";
-  import UserManagement from "./UserManagement.svelte";
-  import { findAllByAltText } from "@testing-library/dom";
+  import Data from '../Data.svelte';
+  import { sortBy } from 'lodash';
+  import { navigate, Link } from 'svelte-routing';
+  import Clock from '../../icons/Clock.svelte';
+  import moment from 'moment';
+  import ShowList from './ShowList.svelte';
+  import TextField from '../forms/TextField.svelte';
+  import TextAreaField from '../forms/TextAreaField.svelte';
+  import SelectField from '../forms/SelectField.svelte';
+  import ImageField from '../forms/ImageField.svelte';
+  import ButtonSelectField from '../forms/ButtonSelectField.svelte';
+  import PodcastField from '../forms/PodcastField.svelte';
+  import Episode from './Episode.svelte';
+  import UserManagement from './UserManagement.svelte';
+  import { findAllByAltText } from '@testing-library/dom';
 
   export let show;
   export let dirty;
@@ -98,7 +98,7 @@
             class="col-span-1"
             label="Primary Category"
             bind:value={$show.meta.category}
-            options={["News", "Politics", "Arts", "Music"]}
+            options={['News', 'Politics', 'Arts', 'Music']}
           />
         </div>
       </div>
@@ -113,20 +113,20 @@
         bind:value={$show.description}
       />
       <Data load="/v1/auth/me" let:data={user}>
-        {#if user.roles.find((r) => r.name == "admin")}
+        {#if user.roles.find((r) => r.name == 'admin')}
           <div class="grid grid-cols-4 gap-4">
             <SelectField
               label="Day"
               class="col-span-1"
               bind:value={$show.when.day}
               options={[
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
               ]}
             />
             <SelectField
@@ -134,28 +134,28 @@
               class="col-span-1"
               bind:value={$show.when.hour}
               options={[
-                "09:00",
-                "10:00",
-                "11:00",
-                "12:00",
-                "13:00",
-                "14:00",
-                "15:00",
-                "16:00",
-                "17:00",
-                "18:00",
-                "19:00",
-                "20:00",
-                "21:00",
-                "22:00",
-                "23:00"
+                '09:00',
+                '10:00',
+                '11:00',
+                '12:00',
+                '13:00',
+                '14:00',
+                '15:00',
+                '16:00',
+                '17:00',
+                '18:00',
+                '19:00',
+                '20:00',
+                '21:00',
+                '22:00',
+                '23:00'
               ]}
             />
             <ButtonSelectField
               class="col-span-2"
               label="Show type"
-              bind:value={$show.when.type}
-              options={["Live", "Prerecorded"]}
+              bind:value={$show.when.year}
+              options={['2020/21', '2021/22']}
             />
           </div>
           <div class="grid grid-cols-2 gap-4">
@@ -253,7 +253,7 @@
         </button>
       </Data>
     </div>
-    {#each sortBy($show.episodes, "created").reverse() as episode, i}
+    {#each sortBy($show.episodes, 'created').reverse() as episode, i}
       <Link
         to="/dashboard/shows/{$show.slug}/episodes/{episode.id}"
         class="block gap-4 p-2 px-4 m-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-600 focus:outline-none"
@@ -265,7 +265,7 @@
               {episode.title}
             </h3>
             <h4 class="text-sm text-gray-400">
-              {episode?.scheduling?.week ?? "..."}
+              {episode?.scheduling?.week ?? '...'}
             </h4>
           </div>
           <div class="ml-auto">
