@@ -1,7 +1,7 @@
 <script>
-  import { navigate, Link } from "svelte-routing";
-  import { TextField, TextAreaField, SelectField, MediaField } from "../forms";
-  import Data from "../Data.svelte";
+  import { navigate, Link } from 'svelte-routing';
+  import { TextField, TextAreaField, SelectField, MediaField } from '../forms';
+  import Data from '../Data.svelte';
   export let episode;
   export let dirty;
   let confirmDelete = false;
@@ -27,7 +27,7 @@
                 class="inline-block h-20 w-20 object-cover rounded-lg {!$episode
                   .Show.picture && 'bg-white'}"
                 src={$episode.Show.picture ??
-                  "https://cdn.freshair.radio/logos/FreshairBlackLogo.png"}
+                  'https://cdn.freshair.radio/logos/FreshairBlackLogo.png'}
                 alt=""
               />
             </div>
@@ -36,7 +36,7 @@
                 {$episode.Show.title}
               </p>
               <p class="font-medium text-gray-200 text-md ">
-                presented by {$episode.Show.meta.byline ?? ""}
+                presented by {$episode.Show.meta.byline ?? ''}
               </p>
             </div>
           </div>
@@ -127,21 +127,21 @@
           label="Broadcast in week starting..."
           bind:value={$episode.scheduling.week}
           options={[
-            "18th January",
-            "25th January",
-            "1st February",
-            "8th February",
-            "15th February",
-            "22nd February",
-            "1st March",
-            "8th March",
-            "15th March",
-            "22nd March",
-            "29th March",
-            "5th April",
-            "12th April",
-            "19th April",
-            "26th April"
+            '18th January',
+            '25th January',
+            '1st February',
+            '8th February',
+            '15th February',
+            '22nd February',
+            '1st March',
+            '8th March',
+            '15th March',
+            '22nd March',
+            '29th March',
+            '5th April',
+            '12th April',
+            '19th April',
+            '26th April'
           ]}
         />
         <MediaField
@@ -152,7 +152,7 @@
           processedValue={$episode.meta.published !== false && $episode.meta}
           label="Episode audio"
           class="col-span-6"
-          ct="audio/mpeg,audio/mp3"
+          ct="audio/mpeg,audio/mp3,audio/m4a,audio/x-m4a"
         />
       </dl>
     </div>

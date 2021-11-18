@@ -1,5 +1,5 @@
 <script>
-  import { onMount, createEventDispatcher, onDestroy } from "svelte";
+  import { onMount, createEventDispatcher, onDestroy } from 'svelte';
   const dispatch = createEventDispatcher();
 
   let ws;
@@ -21,12 +21,12 @@
   let done = false;
   const setupProgressListening = (url) => {
     processing = true;
-    ws = new WebSocket("wss://ws.freshair.radio");
+    ws = new WebSocket('wss://ws.freshair.radio');
     ws.onmessage = (m) => {
       const data = JSON.parse(m.data);
-      if (data.type == "processingUpdate" && url == data.for) {
+      if (data.type == 'processingUpdate' && url == data.for) {
         processingPercentage = Math.round(data.progress);
-      } else if (data.type == "processingDone" && url == data.for) {
+      } else if (data.type == 'processingDone' && url == data.for) {
         done = true;
       }
       console.log(data);
@@ -36,7 +36,7 @@
     const reader = new FileReader();
     const xhr = new XMLHttpRequest();
     xhr.upload.addEventListener(
-      "progress",
+      'progress',
       (e) => {
         if (e.lengthComputable) {
           percentage = Math.round((e.loaded * 100) / e.total);
@@ -47,20 +47,20 @@
     );
 
     xhr.upload.addEventListener(
-      "load",
+      'load',
       (e) => {
         percentage = 100;
-        dispatch("uploaded", signed);
+        dispatch('uploaded', signed);
         if (process) {
           setupProgressListening(signed.access);
         }
       },
       false
     );
-    xhr.open("PUT", signed.signed);
-    xhr.setRequestHeader("x-amz-acl", "public-read");
-    xhr.setRequestHeader("Content-Type", "audio/mpeg");
-    xhr.overrideMimeType("audio/mpeg");
+    xhr.open('PUT', signed.signed);
+    xhr.setRequestHeader('x-amz-acl', 'public-read');
+    xhr.setRequestHeader('Content-Type', signed.mime);
+    xhr.overrideMimeType(signed.mime);
     reader.onload = (evt) => {
       xhr.send(evt.target.result);
     };
@@ -138,7 +138,7 @@
     {#if done}
       Uploaded
     {:else if processing}
-      {processingPercentage == 0 ? "Processing..." : `${processingPercentage}%`}
+      {processingPercentage == 0 ? 'Processing...' : `${processingPercentage}%`}
     {:else}
       {percentage}%
     {/if}
